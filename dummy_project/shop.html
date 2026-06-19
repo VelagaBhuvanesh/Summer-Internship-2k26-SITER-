@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop — NILE</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="shop.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body class="shop-page">
+
+  <!-- NAV -->
+  <nav class="nav shop-nav" id="nav">
+    <a href="index.html" class="nav__logo">NILE</a>
+    <div class="shop-nav__breadcrumb">
+      <a href="index.html">Browse</a>
+      <span>›</span>
+      <span id="navShopName">Shop</span>
+    </div>
+    <div class="nav__actions">
+      <button class="btn btn--ghost" id="shareBtn">↑ Share shop</button>
+      <button class="btn btn--primary" id="navFollowBtn">+ Follow</button>
+    </div>
+    <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html" class="mob-link">← Back to NILE</a></li>
+      <li><a href="#gallery" class="mob-link">Gallery</a></li>
+      <li><a href="#products" class="mob-link">Products</a></li>
+      <li><a href="#about" class="mob-link">About</a></li>
+      <li><a href="#reviews" class="mob-link">Reviews</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO BANNER: generative abstract art canvas -->
+  <div class="shop-hero" id="shopHero">
+    <canvas id="heroCanvas"></canvas>
+    <div class="shop-hero__overlay"></div>
+    <!-- Floating identity card -->
+    <div class="shop-identity" id="shopIdentity">
+      <div class="shop-avatar" id="shopAvatar"></div>
+      <div class="shop-identity__info">
+        <div class="shop-identity__top">
+          <h1 class="shop-identity__name" id="shopName">—</h1>
+          <span class="shop-badge hidden" id="shopBadge"></span>
+        </div>
+        <p class="shop-identity__meta" id="shopMeta">—</p>
+        <p class="shop-identity__desc" id="shopDesc">—</p>
+        <div class="shop-identity__stats">
+          <div class="shop-stat"><strong id="statFollowers">—</strong><span>Followers</span></div>
+          <div class="shop-stat"><strong id="statRating">—</strong><span>Rating</span></div>
+          <div class="shop-stat"><strong id="statItems">—</strong><span>Items</span></div>
+          <div class="shop-stat"><strong id="statYears">—</strong><span>Years on NILE</span></div>
+        </div>
+        <div class="shop-identity__actions">
+          <button class="btn btn--primary" id="followBtn">+ Follow shop</button>
+          <button class="btn btn--outline" id="messageBtn">✉ Message</button>
+          <button class="btn btn--ghost shop-share-btn" id="shareIconBtn" title="Share">↑</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="shop-tabs-bar" id="shopTabsBar">
+    <div class="shop-tabs-bar__inner">
+      <button class="shop-tab active" data-tab="gallery">Gallery</button>
+      <button class="shop-tab" data-tab="products">Products</button>
+      <button class="shop-tab" data-tab="about">About</button>
+      <button class="shop-tab" data-tab="reviews">Reviews</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="shop-main">
+
+    <!-- GALLERY TAB -->
+    <section class="shop-section active" id="tab-gallery">
+      <div class="gallery-intro">
+        <p class="section-label">Artwork Gallery</p>
+        <h2 class="gallery-intro__title" id="galleryTitle">—</h2>
+        <p class="gallery-intro__sub" id="gallerySub">—</p>
+      </div>
+      <div class="art-gallery" id="artGallery">
+        <!-- SVG artworks injected by JS -->
+      </div>
+      <div class="gallery-lightbox" id="lightbox">
+        <div class="lightbox__backdrop" id="lightboxBackdrop"></div>
+        <div class="lightbox__frame" id="lightboxFrame">
+          <button class="lightbox__close" id="lightboxClose">✕</button>
+          <div class="lightbox__art" id="lightboxArt"></div>
+          <div class="lightbox__caption" id="lightboxCaption"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS TAB -->
+    <section class="shop-section hidden" id="tab-products">
+      <div class="products-head">
+        <p class="section-label">Products</p>
+        <h2 class="section-title" id="productsTitle">—</h2>
+      </div>
+      <div class="products-grid" id="productsGrid">
+        <!-- Product cards injected by JS -->
+      </div>
+    </section>
+
+    <!-- ABOUT TAB -->
+    <section class="shop-section hidden" id="tab-about">
+      <div class="about-layout">
+        <div class="about-main">
+          <p class="section-label">About this shop</p>
+          <h2 class="section-title" id="aboutTitle">—</h2>
+          <div class="about-body" id="aboutBody">—</div>
+          <div class="about-canvas-wrap">
+            <canvas id="aboutCanvas" width="600" height="300"></canvas>
+            <p class="about-canvas-caption">Generative artwork · unique to this shop</p>
+          </div>
+        </div>
+        <aside class="about-sidebar">
+          <div class="about-card">
+            <h3>Shop details</h3>
+            <ul class="about-details" id="aboutDetails"></ul>
+          </div>
+          <div class="about-card" id="aboutTagsCard">
+            <h3>Tags</h3>
+            <div class="about-tags" id="aboutTags"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- REVIEWS TAB -->
+    <section class="shop-section hidden" id="tab-reviews">
+      <div class="reviews-head">
+        <p class="section-label">Customer reviews</p>
+        <div class="reviews-summary">
+          <span class="reviews-avg" id="reviewsAvg">—</span>
+          <div>
+            <div class="reviews-stars" id="reviewsStars"></div>
+            <p class="reviews-count" id="reviewsCount">—</p>
+          </div>
+        </div>
+        <div class="reviews-bar-chart" id="reviewsBars"></div>
+      </div>
+      <div class="reviews-list" id="reviewsList"></div>
+    </section>
+
+  </main>
+
+  <!-- RELATED SHOPS -->
+  <section class="related-shops">
+    <div class="related-shops__inner">
+      <p class="section-label">More shops you might like</p>
+      <div class="related-grid" id="relatedGrid"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER (same as index) -->
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="footer__logo">NILE</span>
+        <p>The free marketplace for independent vendors. Open a shop today.</p>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col">
+          <h4>Sell</h4>
+          <ul>
+            <li><a href="index.html#join">Open a shop</a></li>
+            <li><a href="#">Seller guide</a></li>
+            <li><a href="#">Gallery tips</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Buy</h4>
+          <ul>
+            <li><a href="index.html#vendors">Browse vendors</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">New arrivals</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 NILE. All rights reserved.</span>
+      <div class="footer__legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MESSAGE MODAL -->
+  <div class="modal-overlay" id="msgOverlay">
+    <div class="modal" id="msgModal">
+      <button class="modal__close" id="msgClose">✕</button>
+      <h3 style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin-bottom:1.25rem">Message <span id="msgShopName">shop</span></h3>
+      <div class="form-field">
+        <label>Your name</label>
+        <input type="text" placeholder="Your name" id="msgName" />
+      </div>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" placeholder="you@example.com" id="msgEmail" />
+      </div>
+      <div class="form-field">
+        <label>Message</label>
+        <textarea id="msgText" rows="4" placeholder="Hi, I'm interested in…" style="padding:.65rem .875rem;border:1.5px solid var(--lite);border-radius:4px;font-family:var(--font-body);font-size:.9rem;color:var(--ink);resize:vertical;outline:none;width:100%;transition:border-color .2s"></textarea>
+      </div>
+      <button class="btn btn--primary btn--block" id="msgSend">Send message →</button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+  <script src="shop.js"></script>
+</body>
+</html>
