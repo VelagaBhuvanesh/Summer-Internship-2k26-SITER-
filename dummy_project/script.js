@@ -118,7 +118,7 @@ function createVendorCard(vendor) {
   const [e1, e2, e3, e4] = vendor.emoji;
 
   return `
-    <article class="vendor-card fade-in" data-id="${vendor.id}">
+    <article class="vendor-card fade-in" data-id="${vendor.id}" onclick="window.location.href='shop.html?id=${vendor.id}'" style="cursor:pointer">
       <div class="vendor-card__gallery">
         <div class="vendor-card__gallery-img" style="background:${c1}"><span>${e1}</span></div>
         <div class="vendor-card__gallery-img" style="background:${c2}"><span>${e2}</span></div>
