@@ -1,282 +1,313 @@
-# PrismFlow
-### A Retail ETL Pipeline and Business Intelligence Platform
+# 🚖 Cablytics
 
-![Python](https://img.shields.io/badge/Python-3.x-blue)
-![SQL](https://img.shields.io/badge/SQL-Database-green)
-![Apache Airflow](https://img.shields.io/badge/Apache-Airflow-red)
-![Power BI](https://img.shields.io/badge/Power%20BI-Business%20Intelligence-yellow)
+### *An End-to-End Data Engineering Platform for Ride-Hailing Analytics*
 
-
----
-
-## 📖 Overview
-
-PrismFlow is a modern Data Engineering platform designed for retail businesses to automate their data processing workflow.
-
-Retail organizations often receive business data from multiple systems such as Sales, Customers, Inventory, Products, and Suppliers. These datasets are typically stored in different formats, making analysis difficult.
-
-PrismFlow centralizes these datasets by providing an automated ETL (Extract, Transform, Load) pipeline that validates, cleans, transforms, and loads the processed data into a centralized Data Warehouse. The processed data is then visualized through Microsoft Power BI dashboards for business intelligence.
+![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)
+![Apache Airflow](https://img.shields.io/badge/Apache-Airflow-red?logo=apacheairflow)
+![MySQL](https://img.shields.io/badge/MySQL-Database-blue?logo=mysql)
+![Google BigQuery](https://img.shields.io/badge/Google-BigQuery-blue?logo=googlecloud)
+![Power BI](https://img.shields.io/badge/Power-BI-yellow?logo=powerbi)
+![Git](https://img.shields.io/badge/Git-Version%20Control-orange?logo=git)
 
 ---
 
-## 🎯 Problem Statement
+# 📌 Overview
 
-Retail businesses generate massive amounts of operational data every day.
+**Cablytics** is an end-to-end Data Engineering project that simulates the data infrastructure of a modern ride-hailing company. The platform demonstrates how operational ride data is extracted, validated, transformed, and loaded into a centralized Data Warehouse, where it is analyzed through interactive Power BI dashboards.
 
-Some common challenges include:
-
-- Multiple disconnected data sources
-- Duplicate and inconsistent records
-- Missing values
-- Different file formats
-- Difficult manual reporting
-- Lack of centralized analytics
-
-PrismFlow solves these problems through an automated retail ETL pipeline.
+The project showcases industry-standard Data Engineering concepts including ETL pipelines, workflow orchestration, staging databases, dimensional modeling, cloud data warehousing, and business intelligence.
 
 ---
 
-# 🚀 Features
+# 🎯 Project Objectives
 
-- Multi-source Retail Dataset Upload
-- Schema Validation
-- Automated ETL Pipeline
-- Data Cleaning
-- Data Transformation
-- Data Quality Validation
-- Staging Database
-- Centralized Data Warehouse
-- Power BI Integration
-- Modern Responsive Web Interface
+* Build an automated ETL pipeline for ride-hailing datasets.
+* Implement data validation and quality checks.
+* Design a centralized Data Warehouse using a Star Schema.
+* Automate workflows using Apache Airflow.
+* Generate business insights using Microsoft Power BI.
+* Demonstrate an end-to-end Data Engineering workflow from raw data to analytics.
 
 ---
 
-# 🏗 System Architecture
+# 🚖 Business Scenario
 
+Ride-hailing companies generate large volumes of operational data every day, including:
+
+* Trip Records
+* Driver Information
+* Passenger Information
+* Payment Transactions
+* Vehicle Details
+* Ratings & Reviews
+* Pickup and Drop Locations
+
+Managing and analyzing this data efficiently requires an automated Data Engineering pipeline capable of transforming raw operational data into meaningful business insights.
+
+Cablytics addresses this challenge through a scalable ETL architecture.
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                Ride-Hailing Datasets
+              (CSV / Excel / JSON Files)
+                         │
+                         ▼
+                Data Extraction (Python)
+                         │
+                         ▼
+              Data Validation & Cleaning
+                         │
+                         ▼
+          Apache Airflow Workflow Orchestration
+                         │
+                         ▼
+              MySQL Staging Database
+                         │
+                         ▼
+            Data Transformation & Modeling
+                         │
+                         ▼
+         Google BigQuery Data Warehouse
+                         │
+                         ▼
+             Microsoft Power BI Dashboard
 ```
-Retail Data Sources
-       │
-       ▼
- Upload Interface
-       │
-       ▼
-Schema Validation
-       │
-       ▼
-ETL Pipeline
-(Extract • Transform • Load)
-       │
-       ▼
-Staging Database
-       │
-       ▼
-Data Warehouse
-       │
-       ▼
-Microsoft Power BI
-```
 
 ---
 
-# 📂 Supported Retail Datasets
+# ⚙️ Technology Stack
 
-PrismFlow currently supports:
+## Programming
 
-- Sales Data
-- Customer Data
-- Product Data
-- Inventory Data
-- Supplier Data
+* Python
+* SQL
 
-Supported File Formats:
+## Data Processing
 
-- CSV (.csv)
-- Excel (.xlsx)
-- JSON (.json)
+* Pandas
+* NumPy
 
----
+## Workflow Orchestration
 
-# 🛠 Technology Stack
+* Apache Airflow
 
-## Frontend
+## Databases
 
-- HTML5
-- CSS3
-- JavaScript
+* MySQL (Staging Database)
+* Google BigQuery (Data Warehouse)
 
-## Backend
+## Data Visualization
 
-- Python
-
-## Data Engineering
-
-- Pandas
-- SQL
-- Apache Airflow
-
-## Data Storage
-
-- MySQL (Staging Database)
-- Google BigQuery (Data Warehouse)
-
-## Business Intelligence
-
-- Microsoft Power BI
+* Microsoft Power BI
 
 ## Version Control
 
-- Git
-- GitHub
+* Git
+* GitHub
 
 ---
 
-# 🔄 ETL Workflow
+# 📂 Project Workflow
 
-### 1. Extract
+### Step 1 — Data Ingestion
 
-Retail datasets are uploaded through the web interface.
+Ride-hailing datasets are collected from multiple operational sources.
 
-Examples:
+Example datasets include:
 
-- Sales.csv
-- Customers.xlsx
-- Products.csv
-- Inventory.xlsx
-- Suppliers.csv
-
----
-
-### 2. Validate
-
-The system validates:
-
-- File format
-- Required columns
-- Data types
-- Missing fields
+* Trips
+* Drivers
+* Passengers
+* Vehicles
+* Payments
+* Ratings
 
 ---
 
-### 3. Transform
+### Step 2 — Extract
 
-Data processing includes:
-
-- Removing duplicate records
-- Handling missing values
-- Standardizing formats
-- Date conversion
-- Data normalization
-- Business rule validation
+The ETL pipeline extracts raw datasets using Python and Pandas.
 
 ---
 
-### 4. Load
+### Step 3 — Data Validation
 
-Processed data is first loaded into a staging database.
+The pipeline validates:
 
-After validation, the data is transferred into the centralized Data Warehouse for analytics.
-
----
-
-### 5. Business Intelligence
-
-Microsoft Power BI connects directly to the Data Warehouse to provide:
-
-- Sales Analytics
-- Product Performance
-- Inventory Insights
-- Customer Analysis
-- Revenue Trends
+* Missing values
+* Duplicate records
+* Invalid timestamps
+* Incorrect fare values
+* Data type mismatches
+* Schema consistency
 
 ---
 
-# 📊 Project Workflow
+### Step 4 — Transformation
+
+The transformation layer performs:
+
+* Data Cleaning
+* Standardization
+* Null Value Handling
+* Feature Engineering
+* Trip Duration Calculation
+* Fare Categorization
+* Date Dimension Generation
+
+---
+
+### Step 5 — Load
+
+The processed data is first loaded into the MySQL Staging Database.
+
+After successful validation, it is loaded into the Google BigQuery Data Warehouse.
+
+---
+
+### Step 6 — Business Intelligence
+
+Microsoft Power BI connects directly to the Data Warehouse to generate interactive dashboards for business decision-making.
+
+---
+
+# 🗄️ Data Warehouse Design
+
+The warehouse follows a **Star Schema**.
+
+## Fact Table
 
 ```
-Upload Retail Dataset
-        │
-        ▼
-Schema Validation
-        │
-        ▼
-Extract
-        │
-        ▼
-Transform
-        │
-        ▼
-Load into Staging Database
-        │
-        ▼
-Load into Data Warehouse
-        │
-        ▼
-Power BI Dashboard
+FactTrips
 ```
+
+## Dimension Tables
+
+```
+DimDriver
+DimPassenger
+DimVehicle
+DimLocation
+DimPayment
+DimDate
+```
+
+This dimensional model enables fast analytical queries and efficient reporting.
+
+---
+
+# 📊 Power BI Dashboards
+
+The project includes dashboards covering:
+
+* Total Trips
+* Revenue Analysis
+* Peak Ride Hours
+* Driver Performance
+* Passenger Growth
+* Payment Method Distribution
+* Pickup & Drop Hotspots
+* Average Trip Distance
+* Average Trip Duration
+* Daily & Monthly Trends
 
 ---
 
 # 📁 Project Structure
 
 ```
-PrismFlow/
+Cablytics/
+
 │
-├── static/
-│   ├── css/
-│   ├── js/
-│   └── images/
+├── data/
+│   ├── raw/
+│   ├── processed/
 │
-├── templates/
-│   ├── index.html
-│   ├── login.html
-│   ├── dashboard.html
-│   ├── upload.html
-│   └── powerbi.html
+├── airflow/
+│   └── dags/
 │
 ├── etl/
 │   ├── extract.py
+│   ├── validate.py
 │   ├── transform.py
 │   ├── load.py
 │
 ├── database/
+│   ├── staging/
+│   └── warehouse/
 │
-├── airflow/
+├── sql/
+│   ├── staging_schema.sql
+│   ├── warehouse_schema.sql
+│
+├── powerbi/
+│
+├── notebooks/
 │
 ├── requirements.txt
 │
 ├── README.md
 │
-└── app.py
+└── .gitignore
 ```
 
 ---
 
-# 📌 Future Enhancements
+# ✨ Key Features
 
-- Automatic Schema Detection
-- Real-time ETL Monitoring
-- Incremental Data Loading
-- Data Lineage Tracking
-- Data Quality Reports
-- AI-powered Business Insights
-- User Authentication
-- Cloud Deployment
-- Multi-tenant Support
+* End-to-End ETL Pipeline
+* Automated Workflow using Apache Airflow
+* Data Quality Validation
+* Staging Database Architecture
+* Star Schema Data Warehouse
+* Business Intelligence Dashboards
+* Modular Python Codebase
+* Scalable Data Processing Workflow
 
 ---
 
-# 🎓 Learning Objectives
+# 📈 Expected Outcomes
+
+After successful execution, the pipeline will:
+
+* Ingest ride-hailing operational data.
+* Validate and clean incoming datasets.
+* Transform data into an analytics-ready format.
+* Load processed data into the Data Warehouse.
+* Enable interactive reporting through Power BI.
+
+---
+
+# 🚀 Future Enhancements
+
+* Real-time Streaming Pipeline using Apache Kafka
+* Change Data Capture (CDC)
+* Incremental Data Loading
+* Cloud Deployment
+* Data Quality Monitoring
+* Pipeline Alerting
+* Automated Power BI Refresh
+* Machine Learning-Based Demand Forecasting
+
+---
+
+# 🎓 Learning Outcomes
 
 This project demonstrates practical implementation of:
 
-- Data Engineering
-- ETL Pipelines
-- SQL
-- Data Warehousing
-- Apache Airflow
-- Business Intelligence
-- Data Validation
-- Version Control using Git
+* Data Engineering
+* ETL Pipeline Development
+* SQL & Database Management
+* Data Warehousing
+* Dimensional Modeling
+* Apache Airflow
+* Cloud Data Warehousing
+* Business Intelligence
+* Data Quality Management
+* Version Control using Git & GitHub
 
 ---
 
@@ -284,12 +315,8 @@ This project demonstrates practical implementation of:
 
 **Velaga Bhuvanesh**
 
-Summer Internship 2026
-
-Data Engineering Domain
+**Summer Internship 2026 — Data Engineering**
 
 ---
 
-# ⭐ If you like this project
-
-Give this repository a ⭐ on GitHub!
+## ⭐ If you found this project interesting, consider giving it a star on GitHub!
