@@ -5,7 +5,7 @@
 ![SQL](https://img.shields.io/badge/SQL-Database-green)
 ![Apache Airflow](https://img.shields.io/badge/Apache-Airflow-red)
 ![Power BI](https://img.shields.io/badge/Power%20BI-Business%20Intelligence-yellow)
-![License](https://img.shields.io/badge/License-MIT-purple)
+
 
 ---
 
