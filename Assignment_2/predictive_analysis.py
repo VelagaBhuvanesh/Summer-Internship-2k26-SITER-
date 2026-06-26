@@ -14,6 +14,7 @@ ENGINE = create_engine(f'mysql+mysqlconnector://{MYSQL_USER}:{MYSQL_PASS}@{MYSQL
 CHUNK_SIZE = 100_000
 
 def extract_daily_trips_chunked():
+    print("Extracting daily trips (chunked aggregation)...")
     conn = mysql.connector.connect(host=MYSQL_HOST, user=MYSQL_USER, password=MYSQL_PASS, database=MYSQL_DB)
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT tpep_pickup_datetime FROM facttrips")
@@ -30,36 +31,59 @@ def extract_daily_trips_chunked():
     df = pd.DataFrame(list(daily_counts.items()), columns=['ds', 'y'])
     df['ds'] = pd.to_datetime(df['ds'])
     df = df.sort_values('ds')
+    print(f"  Aggregated {len(df)} daily records. Min trips: {df['y'].min()}, Max: {df['y'].max()}")
     return df
 
 def train_and_forecast(df, periods=30):
-    # Force non-negative forecasts with logistic growth
-    df['floor'] = 0
-    df['cap'] = df['y'].max() * 1.5
-    model = Prophet(growth='logistic', daily_seasonality=True, yearly_seasonality=True)
+    print("Training Prophet model with floor = min observed trips...")
+    min_trips = df['y'].min()               # e.g., 200,000
+    cap_value = df['y'].max() * 1.5         # 50% above max
+
+    df['floor'] = min_trips
+    df['cap']   = cap_value
+
+    model = Prophet(
+        growth='logistic',
+        daily_seasonality=True,
+        yearly_seasonality=True
+    )
     model.fit(df)
+
     future = model.make_future_dataframe(periods=periods)
-    future['floor'] = 0
-    future['cap'] = df['cap'].max()
+    future['floor'] = min_trips
+    future['cap']   = cap_value
+
     forecast = model.predict(future)
     result = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail(periods)
+
+    # Round to integers – keep values clean
+    for col in ['yhat', 'yhat_lower', 'yhat_upper']:
+        result[col] = result[col].round().astype(int)
+
+    print(f"  Forecast ready. Min predicted: {result['yhat'].min()} trips")
     return model, result
 
 def save_forecast_to_mysql(forecast_df):
+    print("Saving forecast to MySQL (trip_forecast table)...")
     forecast_df['ds'] = pd.to_datetime(forecast_df['ds']).dt.date
-    dtype_dict = {'ds': Date(), 'yhat': Float(), 'yhat_lower': Float(), 'yhat_upper': Float()}
+    dtype_dict = {
+        'ds': Date(),
+        'yhat': Float(),
+        'yhat_lower': Float(),
+        'yhat_upper': Float()
+    }
     forecast_df.to_sql('trip_forecast', con=ENGINE, if_exists='replace', index=False, dtype=dtype_dict)
     with ENGINE.connect() as conn:
         conn.execute(text("ALTER TABLE trip_forecast ADD PRIMARY KEY (ds)"))
         conn.commit()
-    print("Forecast saved to MySQL.")
+    print("  Forecast table saved.")
 
 def main():
-    print("=== Cablytics Demand Forecasting ===")
+    print("=== Cablytics Demand Forecasting (Corrected Floor) ===")
     daily_df = extract_daily_trips_chunked()
     _, forecast_df = train_and_forecast(daily_df, periods=30)
     save_forecast_to_mysql(forecast_df)
-    print("✅ Done. Forecast ready in trip_forecast table.")
+    print("✅ All done. No negatives, no decimals.")
 
 if __name__ == '__main__':
     main()
